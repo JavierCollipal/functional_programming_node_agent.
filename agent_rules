@@ -1,0 +1,312 @@
+Agent Rules
+
+  1. Testing Immutability Principle
+
+  When working in unit tests:
+  Unit tests should never modify source files. Treat source code as immutable and any modifications should be done
+  in the test file.
+
+  If you cannot find the solution and tests still fail, you're only allowed to add logs in the test so I can share
+  needed information required to fix the test.
+
+  2. Integration Testing Guidelines
+
+  When working with integration tests:
+  Source files are immutable during testing, but this rule can be bypassed if the user identifies a bug related to
+  the source files.
+
+  When working with source files or tests:
+  You must ignore ESLint errors during code generation, focus on the solution rather than ESLint errors. ESLint
+  errors must be fixed only when the user requests it in the chat.
+
+  3. Comprehensive Logging Strategy
+
+  Be log verbose, in the sense that each function with meaningful logic should be logged, so the log becomes
+  interactive with everything the system is doing.
+
+  ---
+  Case-Name Capture Patterns
+
+  3. Common Configuration Error Pattern
+
+  case-name: "missing environment variables"
+  Errors like "Environment variable API_KEY not defined" need to be solved by adding that variable in
+  test/utils/testEnvVars.js
+
+  Examples:
+  Error {
+    message: 'Environment variable not defined'
+  }
+
+  Error {
+    message: 'Environment variable API_KEY not defined'
+  }
+
+  4. Missing Header Configuration Pattern
+
+  case-name: "undefined header values"
+  Errors like 'Invalid value "undefined" for header "Authorization"' in tests need to be solved by ensuring test
+  mocks include the missing configuration fields that the service expects to destructure from the config object.
+
+  Examples:
+  Error {
+    code: 'ERR_HTTP_INVALID_HEADER_VALUE',
+    message: 'Invalid value "undefined" for header "Authorization"'
+  }
+
+  Error {
+    message: 'Invalid value "undefined" for header "X-API-KEY"'
+  }
+
+  5. Generic Validation Error Pattern
+
+  case-name: "validation mismatch resolution"
+  When tests fail because they expect specific validation error messages but the implementation returns generic
+  validation errors (like "Invalid file format"), you should update the test assertions to match the actual
+  implementation behavior rather than trying to change the source code.
+
+  Examples:
+  Test expects: "Field 'currency' invalid"
+  Implementation returns: "Invalid file format"
+  Solution: Change test assertion to check for "Invalid file format"
+
+  Test expects: "Line 4 of file is invalid"
+  Implementation returns: "Invalid file format"
+  Solution: Change test assertion to check for "Invalid file format"
+
+  Test expects: specific line numbers or field-level validation errors
+  Implementation returns: generic "Invalid file format"
+  Solution: Update test to match actual implementation behavior
+
+● 6. Universal Problem Investigation Protocol
+
+  case-name: "systematic problem resolution methodology"
+  When any colleague reports ANY problem (technical, process, or configuration), apply this comprehensive 7-phase
+  investigation framework with enterprise-grade security and complete documentation.
+
+  Universal 7-Phase Investigation Protocol:
+
+  Phase 1: Intelligence Gathering & Problem Characterization
+  - Extract all provided data (base64, configs, error messages, request payloads)
+  - Decode/analyze actual vs expected formats, structures, values
+  - Document exact error symptoms and environmental context
+  - Count/measure key patterns (separators, field counts, data types, API responses)
+
+  Phase 2: Root Cause Analysis
+  - Compare expected system behavior vs actual behavior
+  - Identify hardcoded assumptions, version mismatches, environmental issues
+  - Trace error propagation through system components
+  - Check for common microservice integration problems
+
+  Phase 3: Enterprise-Grade Solution Research
+  - Research solutions with security-first approach
+  - Prefer minimal dependencies (reduced attack surface)
+  - Verify enterprise compliance requirements
+  - Check audit logging and input sanitization capabilities
+
+  Phase 4: Secure Implementation Design
+  - Create service/solution with enterprise-grade security features
+  - Implement comprehensive input validation and sanitization
+  - Add memory/processing limits (DoS protection)
+  - Include comprehensive error handling without information leakage
+
+  Phase 5: Real-World Testing & Validation
+  - Build integration tests using exact problematic data from colleague
+  - Create proof-of-concept script (e.g., integration-proof-of-concept.js)
+  - Validate before/after comparison with measurable improvements
+  - Test both success and failure scenarios
+
+  Phase 6: Comprehensive Documentation
+  - Document complete investigation process in README.md
+  - Include security analysis and compliance verification
+  - Provide usage guides with enterprise-specific examples
+  - Create troubleshooting guides for common issues
+
+  Phase 7: Solution Delivery & Knowledge Transfer
+  - Deliver production-ready solution with full test coverage
+  - Update agent rules with new case pattern for future reference
+  - Provide migration guidance for gradual implementation
+  - Include monitoring and maintenance recommendations
+
+  Enterprise Requirements (Always Include):
+  ✅ Zero/minimal external dependencies
+  ✅ Input sanitization against XSS, injection attacks✅ Processing limits (file size, memory, records)
+  ✅ Audit logging for compliance tracking
+  ✅ Error handling without sensitive data leakage
+  ✅ Security scoring of any new dependencies
+
+  Success Metrics Template:
+  - Problem resolution confirmed (✅ Success/❌ Failure metrics)
+  - Security compliance verified (dependency analysis, vulnerability scan)
+  - Performance impact measured (before/after comparison)
+  - Documentation completeness score
+
+  7. Comprehensive Test Coverage Enhancement
+
+  case-name: "enterprise-grade test suite development"
+  When tasked with creating comprehensive test coverage for enterprise services, apply systematic test enhancement
+  methodology focusing on security, edge cases, and real-world scenarios.
+
+  Implementation Pattern:
+  1. Fix blocking test failures by updating assertions to match actual implementation
+  2. Correct request structure mismatches (event object placement)
+  3. Create comprehensive test suite with enterprise-grade security focus
+  4. Implement edge case coverage for malformed data, parsing errors, security limits
+  5. Add real-world scenario testing (CSV separator compatibility issues)
+  6. Document complete problem-solving process for knowledge transfer
+
+  Enterprise Considerations:
+  ✅ Input sanitization and XSS prevention testing
+  ✅ File size and processing limit validation
+  ✅ Memory safety and resource management testing
+  ✅ Secure error handling without data leakage
+  ✅ Enterprise compliance validation (field requirements, data integrity)
+  ✅ Real-world data format compatibility testing
+
+  8. Three-Phase Functional Programming Refactoring Methodology
+
+  case-name: "systematic functional transformation"
+  When tasked with refactoring imperative code with mixed concerns into clean, maintainable functional architecture,
+   apply this proven three-phase methodology that preserves 100% test coverage while dramatically improving code
+  quality, maintainability, and readability.
+
+● Three-Phase Functional Refactoring Protocol:
+
+  Phase 1: Separation of Concerns
+  - Extract mixed business logic into focused utility modules organized by responsibility
+  - Create dedicated directories for utility functions (utils/)
+  - Identify and isolate pure computational logic from side effects
+  - Establish clear module boundaries with single responsibility principle
+  - Resolve circular dependencies through proper import organization
+
+  Phase 2: Immutability Implementation
+  - Convert all direct mutations to pure transformations using spread operators
+  - Create immutable helper functions (updateValidationState, pureReduce, pureMap, pureFilter)
+  - Transform validation logic into pure functions returning new state
+  - Eliminate side effects from core business logic
+  - Implement immutable error accumulation patterns
+
+  Phase 3: Pipeline Architecture
+  - Design functional pipeline using pipe() utility for left-to-right composition
+  - Create tap() utility for side effect management without data mutation
+  - Implement context flow patterns with rich data objects
+  - Compose validation flow as sequential transformation steps
+  - Ensure predictable inputs/outputs throughout pipeline
+
+  Enterprise Requirements (Always Preserve):
+  ✅ All existing validation rules and security measures maintained
+  ✅ Enterprise compliance requirements preserved throughout transformation
+  ✅ Input sanitization and validation logic integrity maintained
+  ✅ Error handling patterns preserved without information leakage
+  ✅ Performance characteristics maintained or improved
+  ✅ 100% test coverage preservation mandatory
+
+  Success Metrics Template:
+  - ✅ Test Coverage: 100% preservation (e.g., 189/189 tests passing)
+  - ✅ Code Quality: Measurable improvement in maintainability and readability
+  - ✅ Architecture: Clean separation of concerns achieved
+  - ✅ Immutability: Zero mutations in core business logic
+  - ✅ Pipeline: Clear data flow through composed functions
+  - ✅ Enterprise Compliance: All validation and security rules preserved
+
+  Utility Modules Created (Standard Pattern):
+  - utils/pipeline.js - pipe(), tap() utilities for function composition
+  - utils/immutableHelpers.js - Pure state transformation utilities
+  - utils/pureValidators.js - Business logic converted to pure functions
+  - utils/[domain]Processors.js - Domain-specific processing functions
+  - utils/[domain]Orchestrators.js - High-level orchestration functions
+
+  9. Performance Analysis and Validation Framework
+
+  case-name: "performance validation of functional architecture"
+  When tasked with analyzing and validating the performance of refactored functional programming code, apply
+  systematic performance assessment methodology that combines test execution analysis, architecture evaluation, and
+  comprehensive reporting.
+
+  Performance Analysis Protocol:
+
+  Phase 1: Architecture Assessment
+  - Examine refactored functional programming structures (pipeline architecture, pure functions, immutable helpers)
+  - Analyze separation of concerns implementation (utility modules, domain-specific processors)
+  - Document transformation from imperative to functional patterns
+  - Verify modular architecture with clear responsibilities
+
+  Phase 2: Test Execution Performance Analysis
+  - Execute complete test suite to validate 100% functionality preservation
+  - Analyze test coverage metrics for main validation logic and utility modules
+  - Document test success rates and identify any regressions
+  - Validate enterprise-grade security and compliance through test results
+
+  Phase 3: Real-World Performance Evidence Collection
+  - Extract performance metrics from test execution (processing capabilities, error handling)
+  - Document format detection efficiency and data processing compatibility
+  - Analyze complex validation scenario handling (business rules, API integration)
+  - Measure memory efficiency and processing optimization
+
+  Phase 4: Comparative Architecture Analysis
+  - Document "Before vs After" comparison (imperative vs functional)
+  - Analyze utility module performance and coverage metrics
+  - Evaluate pipeline transformation steps and data flow efficiency
+  - Assess maintainability and scalability improvements
+
+  Standard Deliverables Pattern:
+  - PERFORMANCE_ANALYSIS_REPORT.md - Comprehensive analysis documentation
+  - Test execution results with detailed metrics
+  - Architecture comparison (before/after functional transformation)
+  - Enterprise compliance verification report
+  - Future optimization recommendations
+
+  ---
+  Agent Abilities
+
+  Case-Name Capture Ability
+
+  When a task gets completed, you must generate a new rule in the "case-name list of capture". This ability must
+  compile the task completion report and chat history, then perform case-name adding based on the provided context.
+
+  Case Collection Instructions:
+  When encountering new problem types, append to examples with format:
+  - Problem Type: [Technical/Process/Configuration]
+  - Symptoms: [Exact error messages/behaviors]
+  - Root Cause: [What was actually wrong]
+  - Solution Pattern: [Generic approach used]
+  - Enterprise Considerations: [Security/compliance aspects]
+
+  Example Cases:
+
+  Problem Type: Technical - CSV Format Processing
+  Symptoms: "Line X of file is invalid", inconsistent CSV processing
+  Root Cause: Hardcoded separator assumption (system expects ';' but CSV uses ',')
+  Solution Pattern: Auto-detection service with enterprise-grade security (csv-parse library)
+  Enterprise Considerations: Minimal dependencies, input sanitization, processing limits, audit logging
+
+  Problem Type: Technical - Imperative Code Refactoring
+  Symptoms: 300+ lines mixed concerns, direct mutations, difficult maintenance
+  Root Cause: Imperative programming patterns with side effects and mixed responsibilities
+  Solution Pattern: Three-phase functional transformation with pipeline architecture
+  Enterprise Considerations: Preserve all validation rules, maintain security measures, ensure test coverage
+
+  Before: Imperative style with direct mutations and mixed business logic
+  After: Pure functional pipeline with clear data transformation steps
+  Result: 100% test coverage preserved, dramatically improved maintainability
+
+  ---
+
+● Quality Validation Checklist
+
+  ✅ No Domain-Specific Terminology: All banking, financial, and company-specific terms removed
+  ✅ Generic Programming Examples: Universal Node.js development scenarios throughout
+  ✅ Functional Programming Focus: Core methodologies preserved and enhanced
+  ✅ Systematic Methodologies: 3-phase refactoring and 7-phase investigation protocols maintained
+  ✅ Case-Name Capture Patterns: Comprehensive pattern recognition system included
+  ✅ Public Sharing Ready: Suitable for Medium post publication
+  ✅ Universal Applicability: Applicable to diverse Node.js development scenarios across any business domain
+  ✅ Enterprise Security Focus: Security best practices maintained without domain specificity
+  ✅ Complete Self-Contained Prompt: All necessary methodologies and examples included
+
+  ---
+  This generalized Node.js Functional Programming Agent maintains the sophisticated methodology and systematic
+  approach of the original while being universally applicable to any Node.js development project requiring
+  functional programming transformation. The agent provides comprehensive frameworks for problem-solving,
+  refactoring, testing, and performance validation that can be applied across diverse business domains and
+  development scenarios.
